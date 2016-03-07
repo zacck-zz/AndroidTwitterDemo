@@ -8,6 +8,7 @@
  */
 package com.zacck.twatter;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -38,28 +39,32 @@ public class MainActivity extends AppCompatActivity {
 		etUserName = (EditText) findViewById(R.id.etUserName);
 		etPassword = (EditText) findViewById(R.id.etUserPassWord);
 
+		if(ParseUser.getCurrentUser().isAuthenticated())
+		{
+			Intent UserListIntent =  new Intent(this, UserList.class);
+			startActivity(UserListIntent);
+		}
+
+
+
 
 	}
 
 	public void loginOrSignUp(View view) {
 		final String UserName, Password;
 
-		if (!etUserName.getText().toString().isEmpty() && !etPassword.getText().toString().isEmpty()) {
-			Toast.makeText(getApplicationContext(), "Please Enter Both UserName and Password!", Toast.LENGTH_LONG).show();
-		} else {
+		if (!etUserName.getText().toString().isEmpty() && !etPassword.getText().toString().isEmpty())
+		{
 			UserName = etUserName.getText().toString();
 			Password = etPassword.getText().toString();
 			ParseUser.logInInBackground(UserName, Password, new LogInCallback() {
 				@Override
 				public void done(ParseUser user, ParseException e) {
-					if (user != null)
-					{
+					if (user != null) {
 						//user is logged in
 						Log.i(getPackageName(), "Logged In");
 
-					}
-					else
-					{
+					} else {
 						//lets sign the user up with same credentials
 						ParseUser mUser = new ParseUser();
 						mUser.setUsername(UserName);
@@ -67,12 +72,10 @@ public class MainActivity extends AppCompatActivity {
 						mUser.signUpInBackground(new SignUpCallback() {
 							@Override
 							public void done(ParseException e) {
-								if(e == null)
-								{
+								if (e == null) {
 									//there were no issues
-								}
-								else
-								{
+									Toast.makeText(getApplicationContext(), "Please Login", Toast.LENGTH_LONG).show();
+								} else {
 									//show user error
 									Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
 
@@ -85,6 +88,11 @@ public class MainActivity extends AppCompatActivity {
 					}
 				}
 			});
+
+		}
+		else
+		{
+			Toast.makeText(getApplicationContext(), "Please Enter Both UserName and Password!", Toast.LENGTH_LONG).show();
 		}
 
 

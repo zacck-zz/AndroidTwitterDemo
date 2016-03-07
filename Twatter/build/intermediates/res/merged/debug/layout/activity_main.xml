@@ -17,7 +17,41 @@
                 tools:context="com.zacck.twatter.MainActivity">
 
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/balloon"
+        android:scaleType="fitCenter" />
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/etUserName"
+        android:layout_below="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp" />
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/etUserPassWord"
+        android:layout_below="@+id/etUserName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="22dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login Or SignUp"
+        android:id="@+id/btLoginSIgnUp"
+        android:layout_below="@+id/etUserPassWord"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="27dp"
+        android:onClick="loginOrSignUp" />
 </RelativeLayout>
 <!-- From: file:/C:/Users/Zacck/Documents/twatter/Twitter/Twatter/src/main/res/layout/activity_main.xml -->

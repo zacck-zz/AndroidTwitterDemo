@@ -62,33 +62,38 @@ public class UserFeed extends AppCompatActivity {
 		ParseQuery<ParseObject> mTwatterTwatsQuery = ParseQuery.getQuery("Tweet");
 		//temporalily add this use to teir own feed
 		Collection<String> timeline = ParseUser.getCurrentUser().getList("isFollowing");
-		timeline.add(ParseUser.getCurrentUser().getUsername());
-		mTwatterTwatsQuery.whereContainedIn("username", timeline);
-		mTwatterTwatsQuery.orderByDescending("createdAt");
-		mTwatterTwatsQuery.findInBackground(new FindCallback<ParseObject>()
-		{
-			@Override
-			public void done(List<ParseObject> tweets, ParseException e) {
-				if (e == null) {
-					//lets add each user we get lets add their name to the dataset
-					tweetData.clear();
-					for (ParseObject currTweet : tweets) {
-						Map<String, String> Tweet = new HashMap<String, String>();
-						Tweet.put("content", currTweet.getString("content"));
-						Tweet.put("username",  currTweet.getString("username"));
-						tweetData.add(Tweet);
+		if(timeline != null) {
+			timeline.add(ParseUser.getCurrentUser().getUsername());
+			mTwatterTwatsQuery.whereContainedIn("username", timeline);
+			mTwatterTwatsQuery.orderByDescending("createdAt");
+			mTwatterTwatsQuery.findInBackground(new FindCallback<ParseObject>() {
+				@Override
+				public void done(List<ParseObject> tweets, ParseException e) {
+					if (e == null) {
+						//lets add each user we get lets add their name to the dataset
+						tweetData.clear();
+						for (ParseObject currTweet : tweets) {
+							Map<String, String> Tweet = new HashMap<String, String>();
+							Tweet.put("content", currTweet.getString("content"));
+							Tweet.put("username", currTweet.getString("username"));
+							tweetData.add(Tweet);
+						}
+
+						myAdapter.notifyDataSetChanged();
+
+					} else {
+						alert(e.getMessage());
 					}
 
-					myAdapter.notifyDataSetChanged();
-
 				}
-				else
-				{
-					alert(e.getMessage());
-				}
-
-			}
-		});
+			});
+		}
+		else
+		{
+			alert(getResources().getString(R.string.follow));
+			Intent mFollowersIntent = new Intent(UserFeed.this, UserList.class);
+			startActivity(mFollowersIntent);
+		}
 	}
 
 

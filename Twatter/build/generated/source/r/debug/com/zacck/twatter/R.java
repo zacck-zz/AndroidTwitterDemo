@@ -1710,13 +1710,14 @@ containing a value of this type.
         public static final int app_name=0x7f060013;
         public static final int cancel=0x7f060014;
         public static final int error_fetching_tweets=0x7f060015;
-        public static final int hello_world=0x7f060016;
-        public static final int parse_app_id=0x7f060017;
-        public static final int parse_client_key=0x7f060018;
-        public static final int send=0x7f060019;
-        public static final int send_tweet=0x7f06001a;
-        public static final int status_bar_notification_info_overflow=0x7f06001b;
-        public static final int tweet_success=0x7f06001c;
+        public static final int follow=0x7f060016;
+        public static final int hello_world=0x7f060017;
+        public static final int parse_app_id=0x7f060018;
+        public static final int parse_client_key=0x7f060019;
+        public static final int send=0x7f06001a;
+        public static final int send_tweet=0x7f06001b;
+        public static final int status_bar_notification_info_overflow=0x7f06001c;
+        public static final int tweet_success=0x7f06001d;
     }
     public static final class style {
         public static final int AlertDialog_AppCompat=0x7f080073;

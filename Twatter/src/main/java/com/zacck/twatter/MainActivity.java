@@ -39,14 +39,20 @@ public class MainActivity extends AppCompatActivity {
 		etUserName = (EditText) findViewById(R.id.etUserName);
 		etPassword = (EditText) findViewById(R.id.etUserPassWord);
 
-		if(ParseUser.getCurrentUser().isAuthenticated())
+		if(ParseUser.getCurrentUser()!= null && ParseUser.getCurrentUser().isAuthenticated())
 		{
-			Intent UserListIntent =  new Intent(this, UserFeed.class);
-			startActivity(UserListIntent);
+			goToList();
 		}
 
 
 
+
+	}
+
+	public void goToList()
+	{
+		Intent UserListIntent =  new Intent(this, UserFeed.class);
+		startActivity(UserListIntent);
 
 	}
 
@@ -61,8 +67,7 @@ public class MainActivity extends AppCompatActivity {
 				@Override
 				public void done(ParseUser user, ParseException e) {
 					if (user != null) {
-						//user is logged in
-						Log.i(getPackageName(), "Logged In");
+						goToList();
 
 					} else {
 						//lets sign the user up with same credentials
@@ -98,25 +103,4 @@ public class MainActivity extends AppCompatActivity {
 
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.menu_main, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-
-		//noinspection SimplifiableIfStatement
-		if (id == R.id.action_settings) {
-			return true;
-		}
-
-		return super.onOptionsItemSelected(item);
-	}
 }

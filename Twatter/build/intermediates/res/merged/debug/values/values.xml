@@ -207,6 +207,7 @@
     <string name="app_name">Twatter</string>
     <string name="cancel"> Cancel </string>
     <string name="error_fetching_tweets"> Error Fetching Tweets</string>
+    <string name="follow">Follow Users to See Their Conten</string>
     <string name="hello_world">Hello World!</string>
     <string name="parse_app_id">KTvgkiGmH6u1uhWk3uSigEikM4GrEoUVupu02dex</string>
     <string name="parse_client_key">5iMYJpTQaUtwSlpIi560moZkxGwnhL4eGGbDuFWB</string>

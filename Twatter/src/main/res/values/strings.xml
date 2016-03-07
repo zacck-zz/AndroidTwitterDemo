@@ -20,5 +20,6 @@
     <string name="tweet_success"> Tweet Sent Successfully </string>
     <string name="Followers"> Followers</string>
     <string name="error_fetching_tweets"> Error Fetching Tweets</string>
+    <string name="follow">Follow Users to See Their Conten</string>
 
 </resources>

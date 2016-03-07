@@ -10,6 +10,7 @@ package com.zacck.twatter;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +21,7 @@ import com.parse.LogInCallback;
 import com.parse.ParseAnalytics;
 import com.parse.ParseException;
 import com.parse.ParseUser;
+import com.parse.SignUpCallback;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	public void loginOrSignUp(View view) {
-		String UserName, Password;
+		final String UserName, Password;
 
 		if (!etUserName.getText().toString().isEmpty() && !etPassword.getText().toString().isEmpty()) {
 			Toast.makeText(getApplicationContext(), "Please Enter Both UserName and Password!", Toast.LENGTH_LONG).show();
@@ -52,11 +54,33 @@ public class MainActivity extends AppCompatActivity {
 				public void done(ParseUser user, ParseException e) {
 					if (user != null)
 					{
+						//user is logged in
+						Log.i(getPackageName(), "Logged In");
 
 					}
 					else
 					{
 						//lets sign the user up with same credentials
+						ParseUser mUser = new ParseUser();
+						mUser.setUsername(UserName);
+						mUser.setPassword(Password);
+						mUser.signUpInBackground(new SignUpCallback() {
+							@Override
+							public void done(ParseException e) {
+								if(e == null)
+								{
+									//there were no issues
+								}
+								else
+								{
+									//show user error
+									Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+
+								}
+
+							}
+						});
+
 
 					}
 				}

@@ -34,7 +34,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UserList"></activity>
+        <activity android:name=".UserList" >
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".UserFeed" />
+        </activity>
+        <activity android:name=".UserFeed"></activity>
     </application>
 
 </manifest>

@@ -13,7 +13,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="9"
+        android:minSdkVersion="11"
         android:targetSdkVersion="22" />
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -41,7 +41,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.zacck.twatter.UserList" />
+        <activity android:name="com.zacck.twatter.UserList" >
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".UserFeed" />
+        </activity>
+        <activity android:name="com.zacck.twatter.UserFeed" />
     </application>
 
 </manifest>

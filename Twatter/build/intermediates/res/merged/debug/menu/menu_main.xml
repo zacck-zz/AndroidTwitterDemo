@@ -14,5 +14,11 @@
           android:title="@string/action_settings"
           android:orderInCategory="100"
           app:showAsAction="never"/>
+    <item android:id="@+id/action_tweet"
+        android:title="@string/action_settings"
+        android:orderInCategory="100"
+        app:showAsAction="never"/>
+
+
 </menu>
 <!-- From: file:/C:/Users/Zacck/Documents/twatter/Twitter/Twatter/src/main/res/menu/menu_main.xml -->

@@ -15,9 +15,12 @@
           android:orderInCategory="100"
           app:showAsAction="never"/>
     <item android:id="@+id/action_tweet"
-        android:title="@string/action_settings"
+        android:icon="@android:drawable/ic_input_get"
+        android:title="@string/send_tweet"
+        app:showAsAction="always"/>
+    <item android:id="@+id/Followers"
+        android:title="@string/Followers"
         android:orderInCategory="100"
         app:showAsAction="never"/>
-
 
 </menu>

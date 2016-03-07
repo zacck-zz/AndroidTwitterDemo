@@ -1,5 +1,6 @@
 package com.zacck.twatter;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
@@ -14,11 +15,14 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,12 +37,14 @@ public class UserList extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_user_list);
-		UserListView = (ListView)findViewById(R.id.mUserListView);
+		android.support.v7.app.ActionBar ab = getSupportActionBar();
+		ab.setDisplayHomeAsUpEnabled(true);
 
-		if (ParseUser.getCurrentUser().get("isFollowing") == null)
-		{
+		UserListView = (ListView) findViewById(R.id.mUserListView);
+
+		if (ParseUser.getCurrentUser().get("isFollowing") == null) {
 			List<String> emptyList = new ArrayList<>();
-			ParseUser.getCurrentUser().put("isFollowing",emptyList);
+			ParseUser.getCurrentUser().put("isFollowing", emptyList);
 		}
 
 		twatterUsers = new ArrayList();
@@ -50,19 +56,15 @@ public class UserList extends AppCompatActivity {
 
 		UserListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-			{
-				CheckedTextView  mUserVIew = (CheckedTextView)view;
-				if(mUserVIew.isChecked())
-				{
-					Log.i(getPackageName(), "Row Checked + "+position);
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				CheckedTextView mUserVIew = (CheckedTextView) view;
+				if (mUserVIew.isChecked()) {
+					Log.i(getPackageName(), "Row Checked + " + position);
 					ParseUser.getCurrentUser().getList("isFollowing").add(twatterUsers.get(position));
 					ParseUser.getCurrentUser().saveInBackground();
 
-				}
-				else
-				{
-					Log.i(getPackageName(), "Row Not Checked + "+position);
+				} else {
+					Log.i(getPackageName(), "Row Not Checked + " + position);
 					ParseUser.getCurrentUser().getList("isFollowing").remove(twatterUsers.get(position));
 					ParseUser.getCurrentUser().saveInBackground();
 				}
@@ -76,35 +78,34 @@ public class UserList extends AppCompatActivity {
 		mTwatterUsersQuery.findInBackground(new FindCallback<ParseUser>() {
 			@Override
 			public void done(List<ParseUser> objects, ParseException e) {
-				if(e == null)
-				{
+				if (e == null) {
 					//lets add each user we get lets add their name to the dataset
 					twatterUsers.clear();
-					for(ParseUser currUser : objects)
-					{
+					for (ParseUser currUser : objects) {
 						twatterUsers.add(currUser.getUsername());
 					}
 
 					mAdp.notifyDataSetChanged();
 
 					//chesck which user the user follows show them as ticked
-					for(String currUsername : twatterUsers)
-					{
-						if(ParseUser.getCurrentUser().getList("isFollowing").contains(currUsername))
-						{
+					for (String currUsername : twatterUsers) {
+						if (ParseUser.getCurrentUser().getList("isFollowing").contains(currUsername)) {
 							UserListView.setItemChecked(twatterUsers.indexOf(currUsername), true);
 						}
 					}
 
-				}
-				else
-				{
-						Log.i(getPackageName(), "There was an error");
+				} else {
+					Log.i(getPackageName(), "There was an error");
 				}
 
 			}
 		});
 
+	}
+
+	public void alert(String msg)
+	{
+		Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
 	}
 
 	//create menus
@@ -125,28 +126,6 @@ public class UserList extends AppCompatActivity {
 		//noinspection SimplifiableIfStatement
 		if (id == R.id.menu_tweet) {
 
-			//alertDialog
-			AlertDialog.Builder mTweetDialog = new AlertDialog.Builder(UserList.this);
-			mTweetDialog.setTitle("Send A Tweet");
-			//and View During Runtime
-			final EditText etUserTweet = new EditText(UserList.this);
-
-			mTweetDialog.setView(etUserTweet);
-			mTweetDialog.setPositiveButton("Send", new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					Log.i(getPackageName(), etUserTweet.getText().toString());
-
-				}
-			});
-
-			mTweetDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-						dialog.cancel();
-				}
-			});
-			mTweetDialog.show();
 			return true;
 		}
 

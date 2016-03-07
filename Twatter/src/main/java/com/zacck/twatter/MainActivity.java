@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
 		if(ParseUser.getCurrentUser().isAuthenticated())
 		{
-			Intent UserListIntent =  new Intent(this, UserList.class);
+			Intent UserListIntent =  new Intent(this, UserFeed.class);
 			startActivity(UserListIntent);
 		}
 

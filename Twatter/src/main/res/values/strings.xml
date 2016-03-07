@@ -14,4 +14,11 @@
 
     <string name="hello_world">Hello World!</string>
     <string name="action_settings">Settings</string>
+    <string name="send_tweet">Send A Tweet</string>
+    <string name="send"> Send </string>
+    <string name="cancel"> Cancel </string>
+    <string name="tweet_success"> Tweet Sent Successfully </string>
+    <string name="Followers"> Followers</string>
+    <string name="error_fetching_tweets"> Error Fetching Tweets</string>
+
 </resources>
